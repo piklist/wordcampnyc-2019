@@ -90,26 +90,31 @@ function piklist_wcnyc_validate_name($index, $value, $options, $field, $fields)
 {
   $valid = true;
 
-  parse_str($_REQUEST['data'], $data);
-  
   $post_id = $field['object_id'];
 
   $attempts = (int) get_post_meta($post_id, 'piklist_wcnyc_validate_name', true);
-  $name = strtolower(esc_attr($data[piklist::$prefix . 'post_meta']['first_name']) . ' ' . $value);
+  $name = strtolower(esc_attr($_REQUEST[piklist::$prefix . 'post_meta']['first_name']) . ' ' . $value);
 
   $blacklist = array(
-    'Steve Bruner'
-    ,'John Smith'
-    ,'Jane Doe'
+    'steve bruner'
+    ,'john smith'
+    ,'jane doe'
+    ,'john doe'
   );
-  
-  if ($attempts < 3 && !in_array($name, $blacklist))
+
+  $messages = array(
+    '1' => __('C`mon, that name is not real', 'piklist_wcnyc')
+    ,'2' => __('Really. We\'re going to play this game?', 'piklist_wcnyc')
+    ,'3' => __('Seriously? You\'re going to go with this name?', 'piklist_wcnyc')
+  );
+
+  if ($attempts < 3 && in_array($name, $blacklist))
   {
     $attempts = $attempts + 1;
     
+    $valid = $messages[$attempts];
+
     update_post_meta($post_id, 'piklist_wcnyc_validate_name', $attempts);
-    
-    $valid = __('C`mon, that name is lame! attempt - ' . $attempts);
   }
   else
   {
