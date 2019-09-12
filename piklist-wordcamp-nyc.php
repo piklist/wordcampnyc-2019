@@ -148,8 +148,8 @@ function piklist_wcnyc_validate_twitter($index, $value, $options, $field, $field
   if (!is_wp_error($response)) 
   {
     $body = json_decode($response['body']);
-    
-    if (in_array($body->reason, array('available', 'invalid_username')))
+
+    if ($body->reason != 'taken')
     {
       $valid = __('C`mon, we really want to follow you but we can`t follow a ghost!', 'piklist_wcnyc');
     }

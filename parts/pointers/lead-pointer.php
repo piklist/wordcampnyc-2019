@@ -3,7 +3,7 @@
 Title: Get Help
 Anchor ID: #contextual-help-link
 Edge: top
-Align: middle
+Align: right
 Page: post-new.php, post.php
 */
 
