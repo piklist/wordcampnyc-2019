@@ -83,6 +83,10 @@ function piklist_wcnyc_no_fake_names_please($validation_rules)
     'callback' => 'piklist_wcnyc_validate_name'
   );
 
+  $validation_rules['validate_twitter'] = array(
+    'callback' => 'piklist_wcnyc_validate_twitter'
+  );
+  
   return $validation_rules;
 }
 
@@ -130,6 +134,25 @@ function piklist_wcnyc_validate_name($index, $value, $options, $field, $fields)
   else
   {
     delete_post_meta($post_id, 'piklist_wcnyc_validate_name');
+  }
+
+  return $valid;
+}
+
+function piklist_wcnyc_validate_twitter($index, $value, $options, $field, $fields) 
+{
+  $valid = true;
+  
+  $response = wp_remote_get('https://twitter.com/users/username_available?username=' . $value);
+  
+  if (is_array($response)) 
+  {
+    $body = json_decode($response['body']);
+    
+    if (in_array($body->reason, array('available', 'invalid_username')))
+    {
+      $valid = _('Invalid username');
+    }
   }
 
   return $valid;

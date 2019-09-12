@@ -14,7 +14,6 @@ Meta Box: false
   piklist('field', array(
     'type' => 'group'
     ,'label' => __('Full Name', 'piklist-wordcamp-nyc')
-    ,'required' => true
     ,'fields' => array(
       array(
         'type' => 'text'
@@ -65,48 +64,31 @@ Meta Box: false
       )
     )
     ,'attributes' => array(
-      'wrapper_class' => 'user_email'
-      ,'class' => 'large-text'
+      'class' => 'large-text'
     )
   ));
 
-  // Show this field if the Country is set to OTHER
   piklist('field', array(
-    'type' => 'html'
-    ,'field' => '_message_country'
-    ,'value' => sprintf(__('For leads outside the United States, please %1$suse this form %2$s.', 'piklist'),'<a href="' . network_admin_url() . '#">', '</a>')
-    ,'attributes' => array(
-      'class' => 'piklist-error-text'
-    )
-    ,'conditions' => array(
+    'type' => 'text'
+    ,'field' => 'user_twitter'
+    ,'label' => __('Twitter Username', 'piklist-wordcamp-nyc')
+    ,'required' => true
+    ,'validate' => array(
       array(
-        'field' => 'country'
-        ,'value' => 'other'
+        'type' => 'validate_twitter'
       )
     )
+    ,'attributes' => array(
+      'class' => 'large-text'
+    )
   ));
-
+  
   piklist('field', array(
     'type' => 'group'
     ,'label' => __('Address', 'piklist-wordcamp-nyc')
     ,'list' => true
     ,'fields' => array(
       array(
-        'type' => 'radio'
-        ,'field' => 'country'
-        ,'label' => __('Country', 'piklist-wordcamp-nyc')
-        ,'value' => 'us'
-        ,'columns' => 12
-        ,'list' => false
-        ,'attributes' => array(
-          'placeholder' => 'Street Address'
-        )
-        ,'choices' => array(
-          'us' => 'United States'
-          ,'other' => 'Other'
-        )
-      )
-      ,array(
         'type' => 'text'
         ,'field' => 'address_1'
         ,'label' => __('Street Address', 'piklist-wordcamp-nyc')
