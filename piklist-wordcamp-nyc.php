@@ -89,11 +89,22 @@ function piklist_wcnyc_no_fake_names_please($validation_rules)
 function piklist_wcnyc_validate_name($index, $value, $options, $field, $fields) 
 {
   $valid = true;
-
+  
+  if (wp_doing_ajax())
+  {
+    parse_str($_REQUEST['data'], $data);
+    
+    $first_name = esc_attr($data[piklist::$prefix . 'post_meta']['first_name']);
+  }
+  else
+  {
+    $first_name = esc_attr($_REQUEST[piklist::$prefix . 'post_meta']['first_name']);
+  }
+  
   $post_id = $field['object_id'];
 
   $attempts = (int) get_post_meta($post_id, 'piklist_wcnyc_validate_name', true);
-  $name = strtolower(esc_attr($_REQUEST[piklist::$prefix . 'post_meta']['first_name']) . ' ' . $value);
+  $name = strtolower($first_name . ' ' . $value);
 
   $blacklist = array(
     'steve bruner'
