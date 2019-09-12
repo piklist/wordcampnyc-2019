@@ -6,8 +6,6 @@ Edge: top
 Align: right
 Page: post-new.php, post.php
 */
-
-echo 'KEVIN: please align arrow so it points to HELP tab';
 ?>
 
 <p>

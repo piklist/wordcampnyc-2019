@@ -11,7 +11,7 @@ Extend Method: replace
     'type' => 'submit'
     ,'field' => 'submit'
     ,'template' => 'post_meta'
-    ,'value' => 'Add Lead'
+    ,'value' => __('Add Lead', 'piklist-wordcamp-nyc')
     ,'attributes' => array(
       'class' => 'button button-primary button-large'
       ,'style' => 'float: right;'

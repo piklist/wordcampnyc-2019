@@ -7,5 +7,7 @@ Post Type: lead
 ?>
 
   <p>
-    <?php _e('Piklist Demos are designed to show off Piklist features and demonstrate how to use them.', 'piklist-demo');?>
+    <?php _e('Need some extra help?', 'piklist-wordcamp-nyc');?>
   </p>
+  
+  <?php echo do_shortcode('[piklist_form form="lead-help" add_on="piklist-wordcamp-nyc"]'); ?>

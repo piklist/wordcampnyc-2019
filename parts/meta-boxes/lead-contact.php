@@ -84,11 +84,41 @@ Meta Box: false
   ));
   
   piklist('field', array(
+    'type' => 'html'
+    ,'field' => '_message_country'
+    ,'value' => sprintf(__('For leads outside the United States, please %1$suse this form %2$s.', 'piklist'),'<a href="' . network_admin_url() . '#">', '</a>')
+    ,'attributes' => array(
+      'class' => 'piklist-error-text'
+    )
+    ,'conditions' => array(
+      array(
+        'field' => 'country'
+        ,'value' => 'other'
+      )
+    )
+  ));
+  
+  piklist('field', array(
     'type' => 'group'
     ,'label' => __('Address', 'piklist-wordcamp-nyc')
     ,'list' => true
     ,'fields' => array(
       array(
+        'type' => 'radio'
+        ,'field' => 'country'
+        ,'label' => __('Country', 'piklist-wordcamp-nyc')
+        ,'value' => 'us'
+        ,'columns' => 12
+        ,'list' => false
+        ,'attributes' => array(
+          'placeholder' => 'Street Address'
+        )
+        ,'choices' => array(
+          'us' => 'United States'
+          ,'other' => 'Other'
+        )
+      )
+      ,array(
         'type' => 'text'
         ,'field' => 'address_1'
         ,'label' => __('Street Address', 'piklist-wordcamp-nyc')

@@ -9,6 +9,8 @@ Author URI: https://piklist.com/
 Plugin Type: piklist
 */
 
+add_action('admin_footer', 'piklist_wcnyc_js_css');
+
 add_filter('piklist_post_types', 'piklist_wcnyc_post_types');
 add_filter('piklist_empty_post_title', 'piklist_wcnyc_set_lead_title', 10, 2);
 add_filter('screen_layout_columns', 'piklist_wcnyc_layout_columns');
@@ -156,4 +158,23 @@ function piklist_wcnyc_validate_twitter($index, $value, $options, $field, $field
   }
 
   return $valid;
+}
+
+function piklist_wcnyc_js_css() 
+{
+?>
+  <script type="text/javascript">
+    // Adjust our arrow on the help pointer as the pointer API doesn't support right aligned arrows
+    $(window).load(function()
+    {
+      $('h3#piklist_wordcamp_nyc_lead_pointer')
+        .parent()
+        .siblings('.wp-pointer-arrow')
+        .css({
+          left: 'auto',
+          right: '25px'
+        });
+    });
+  </script>
+<?php
 }
