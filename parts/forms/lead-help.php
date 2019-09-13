@@ -7,32 +7,25 @@ Message: Request sent!
   
   // [piklist_form form="lead-help" add_on="piklist-wordcamp-nyc"]
 
+  $current_user = wp_get_current_user();
+
+  $email_address = $current_user->user_email;
+
+  $user_name = $current_user->user_firstname . " " . $current_user->user_lastname;
+
+
   piklist('field', array(
-    'type' => 'text'
-    ,'field' => 'support_email'
-    ,'label' => __('Email2', 'piklist-wordcamp-nyc')
+    'type' => 'textarea'
+    ,'field' => 'message'
     ,'value' => false
     ,'required' => true
+    ,'columns' => 12
     ,'template' => 'label_field'
-    ,'validate' => array(
-      array(
-        'type' => 'email_exists'
-      )
-      ,array(
-        'type' => 'email'
-      )
-      ,array(
-        'type' => 'email_domain'
-      )
-    )
-    ,'attributes' => array(
-      'style' => 'width: 100%; margin-bottom: 10px;'
-    )
   ));
 
   piklist('field', array(
     'type' => 'submit'
-    ,'field' => 'submit2'
+    ,'field' => 'submit'
     ,'value' => 'Request Help'
     ,'template' => 'field'
     ,'attributes' => array(
