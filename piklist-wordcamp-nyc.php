@@ -53,41 +53,6 @@ function piklist_wcnyc_post_types($post_types)
     )
   );
 
-
-  $post_types['sales_lead'] = array(
-    'labels' => piklist('post_type_labels', 'Sales Lead')
-    ,'menu_icon' => piklist('url', 'piklist') . '/parts/img/piklist-menu-icon.svg'
-    ,'page_icon' => piklist('url', 'piklist') . '/parts/img/piklist-page-icon-32.png'
-    ,'show_in_rest' => true
-    ,'supports' => array()
-    ,'public' => true
-      ,'has_archive' => true
-    ,'rewrite' => array(
-      'slug' => 'sales-lead'
-    )
-    ,'capability_type' => 'post'
-    ,'edit_columns' => array(
-      'title' => __('Lead')
-      ,'author' => __('Assigned to')
-    )
-    ,'hide_meta_box' => array(
-      'slug'
-      ,'author'
-    )
-    ,'status' => array(
-      'active' => array(
-        'label' => 'Active'
-        ,'public' => true
-        ,'show_in_admin_all_list' => true
-        ,'show_in_admin_status_list' => true
-      )
-      ,'draft' => array(
-        'label' => 'Draft'
-        ,'public' => true
-      )
-    )
-  );
-
   return $post_types;
 }
 
