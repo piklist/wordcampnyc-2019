@@ -9,8 +9,8 @@ Message: Request sent!
 
   piklist('field', array(
     'type' => 'text'
-    ,'field' => 'email'
-    ,'label' => __('Email', 'piklist-wordcamp-nyc')
+    ,'field' => 'support_email'
+    ,'label' => __('Email2', 'piklist-wordcamp-nyc')
     ,'value' => false
     ,'required' => true
     ,'validate' => array(
@@ -31,7 +31,7 @@ Message: Request sent!
 
   piklist('field', array(
     'type' => 'submit'
-    ,'field' => 'submit'
+    ,'field' => 'submit2'
     ,'value' => 'Request Help'
     ,'attributes' => array(
       'class' => 'button button-primary'

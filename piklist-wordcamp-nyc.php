@@ -15,13 +15,12 @@ add_filter('piklist_post_types', 'piklist_wcnyc_post_types');
 add_filter('piklist_empty_post_title', 'piklist_wcnyc_set_lead_title', 10, 2);
 add_filter('screen_layout_columns', 'piklist_wcnyc_layout_columns');
 add_filter('get_user_option_screen_layout_lead', 'piklist_wcnyc_layout_lead');
-add_filter('piklist_validation_rules', 'piklist_wcnyc_no_fake_names_please', 11);
+add_filter('piklist_validation_rules', 'piklist_wcnyc_validation_rules', 11);
 
 function piklist_wcnyc_post_types($post_types)
 {
   $post_types['lead'] = array(
     'labels' => piklist('post_type_labels', 'Lead')
-    ,'title' => __('Enter a new Demo Title')
     ,'menu_icon' => piklist('url', 'piklist') . '/parts/img/piklist-menu-icon.svg'
     ,'page_icon' => piklist('url', 'piklist') . '/parts/img/piklist-page-icon-32.png'
     ,'show_in_rest' => true
@@ -29,11 +28,46 @@ function piklist_wcnyc_post_types($post_types)
     ,'public' => true
       ,'has_archive' => true
     ,'rewrite' => array(
-      'slug' => 'piklist-demo'
+      'slug' => 'lead'
     )
     ,'capability_type' => 'post'
     ,'edit_columns' => array(
       'title' => __('Demo')
+      ,'author' => __('Assigned to')
+    )
+    ,'hide_meta_box' => array(
+      'slug'
+      ,'author'
+    )
+    ,'status' => array(
+      'active' => array(
+        'label' => 'Active'
+        ,'public' => true
+        ,'show_in_admin_all_list' => true
+        ,'show_in_admin_status_list' => true
+      )
+      ,'draft' => array(
+        'label' => 'Draft'
+        ,'public' => true
+      )
+    )
+  );
+
+
+  $post_types['sales_lead'] = array(
+    'labels' => piklist('post_type_labels', 'Sales Lead')
+    ,'menu_icon' => piklist('url', 'piklist') . '/parts/img/piklist-menu-icon.svg'
+    ,'page_icon' => piklist('url', 'piklist') . '/parts/img/piklist-page-icon-32.png'
+    ,'show_in_rest' => true
+    ,'supports' => array()
+    ,'public' => true
+      ,'has_archive' => true
+    ,'rewrite' => array(
+      'slug' => 'sales-lead'
+    )
+    ,'capability_type' => 'post'
+    ,'edit_columns' => array(
+      'title' => __('Lead')
       ,'author' => __('Assigned to')
     )
     ,'hide_meta_box' => array(
@@ -79,7 +113,7 @@ function piklist_wcnyc_layout_lead()
   return 1;
 }
 
-function piklist_wcnyc_no_fake_names_please($validation_rules) 
+function piklist_wcnyc_validation_rules($validation_rules) 
 {
   $validation_rules['no_fake_names_please'] = array(
     'callback' => 'piklist_wcnyc_validate_name'
