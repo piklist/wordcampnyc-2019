@@ -1,2 +1,2 @@
 # piklist-wordcamp-nyc
-Demo PIklist Application for WordCamp - NYC 2019
+Demo Piklist Application for WordCamp - NYC 2019
