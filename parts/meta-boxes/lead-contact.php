@@ -13,12 +13,12 @@ Meta Box: false
   
   piklist('field', array(
     'type' => 'group'
-    ,'label' => __('Full Name', 'piklist-wordcamp-nyc')
+    ,'label' => __('Full Name', 'wordcampnyc-2019')
     ,'fields' => array(
       array(
         'type' => 'text'
         ,'field' => 'first_name'
-        ,'label' => __('First Name', 'piklist-wordcamp-nyc')
+        ,'label' => __('First Name', 'wordcampnyc-2019')
         ,'label_position' => 'after'
         ,'columns' => 6
         ,'required' => true
@@ -30,7 +30,7 @@ Meta Box: false
       ,array(
         'type' => 'text'
         ,'field' => 'last_name'
-        ,'label' => __('Last Name', 'piklist-wordcamp-nyc')
+        ,'label' => __('Last Name', 'wordcampnyc-2019')
         ,'label_position' => 'after'
         ,'columns' => 6
         ,'required' => true
@@ -47,11 +47,10 @@ Meta Box: false
     )
   ));
 
-
   piklist('field', array(
     'type' => 'text'
     ,'field' => 'company'
-    ,'label' => __('Company', 'piklist-wordcamp-nyc')
+    ,'label' => __('Company', 'wordcampnyc-2019')
     ,'attributes' => array(
       'class' => 'large-text'
     )
@@ -60,8 +59,8 @@ Meta Box: false
   piklist('field', array(
     'type' => 'url'
     ,'field' => 'website'
-    ,'label' => __('Website', 'piklist-wordcamp-nyc')
-    ,'description' => __('Full URL starting with https://', 'piklist-wordcamp-nyc')
+    ,'label' => __('Website', 'wordcampnyc-2019')
+    ,'description' => __('Full URL starting with https://', 'wordcampnyc-2019')
     ,'attributes' => array(
       'class' => 'large-text'
       ,'placeholder' => 'https://'
@@ -71,7 +70,7 @@ Meta Box: false
   piklist('field', array(
     'type' => 'text'
     ,'field' => 'user_email'
-    ,'label' => __('Email', 'piklist-wordcamp-nyc')
+    ,'label' => __('Email', 'wordcampnyc-2019')
     ,'required' => true
     ,'validate' => array(
       array(
@@ -92,9 +91,9 @@ Meta Box: false
   piklist('field', array(
     'type' => 'text'
     ,'field' => 'user_twitter'
-    ,'label' => __('Twitter Username', 'piklist-wordcamp-nyc')
-    ,'description' => __('Just the username, not the full url', 'piklist-wordcamp-nyc')
-    ,'help' => __('This allows us to follow the lead on Twitter.', 'piklist-wordcamp-nyc')
+    ,'label' => __('Twitter Username', 'wordcampnyc-2019')
+    ,'description' => __('Just the username, not the full url', 'wordcampnyc-2019')
+    ,'help' => __('This allows us to follow the lead on Twitter.', 'wordcampnyc-2019')
     ,'validate' => array(
       array(
         'type' => 'validate_twitter'
@@ -105,12 +104,10 @@ Meta Box: false
     )
   ));
 
-
-  // Show this field if the Country is set to OTHER
   piklist('field', array(
     'type' => 'html'
     ,'field' => '_message_country'
-    ,'value' => '<strong>' . sprintf(__('For leads outside the United States, please %1$suse this form %2$s.', 'piklist'),'<a href="' . network_admin_url() . '#">', '</a>') . '</strong>'
+    ,'value' => '<strong>' . sprintf(__('For leads outside the United States, please %1$suse this form %2$s.', 'piklist'), '<a href="' . network_admin_url() . '#">', '</a>') . '</strong>'
     ,'attributes' => array(
       'class' => 'piklist-error-text'
     )
@@ -127,13 +124,13 @@ Meta Box: false
   
   piklist('field', array(
     'type' => 'group'
-    ,'label' => __('Address', 'piklist-wordcamp-nyc')
+    ,'label' => __('Address', 'wordcampnyc-2019')
     ,'list' => true
     ,'fields' => array(
       array(
         'type' => 'radio'
         ,'field' => 'country'
-        ,'label' => __('Country', 'piklist-wordcamp-nyc')
+        ,'label' => __('Country', 'wordcampnyc-2019')
         ,'value' => 'us'
         ,'columns' => 12
         ,'list' => false
@@ -148,25 +145,25 @@ Meta Box: false
       ,array(
         'type' => 'text'
         ,'field' => 'address_1'
-        ,'label' => __('Street Address', 'piklist-wordcamp-nyc')
+        ,'label' => __('Street Address', 'wordcampnyc-2019')
         ,'columns' => 12
       )
       ,array(
         'type' => 'text'
         ,'field' => 'address_2'
-        ,'label' => __('PO Box, Suite, etc.', 'piklist-wordcamp-nyc')
+        ,'label' => __('PO Box, Suite, etc.', 'wordcampnyc-2019')
         ,'columns' => 12
       )
       ,array(
         'type' => 'text'
         ,'field' => 'city'
-        ,'label' => __('City', 'piklist-wordcamp-nyc')
+        ,'label' => __('City', 'wordcampnyc-2019')
         ,'columns' => 5
       )
       ,array(
         'type' => 'select'
         ,'field' => 'state'
-        ,'label' => __('State', 'piklist-wordcamp-nyc')
+        ,'label' => __('State', 'wordcampnyc-2019')
         ,'columns' => 4
         ,'choices' => array(
           'AL' => 'AL'
@@ -225,7 +222,7 @@ Meta Box: false
       ,array(
         'type' => 'text'
         ,'field' => 'postal_code'
-        ,'label' => __('Zip Code', 'piklist-wordcamp-nyc')
+        ,'label' => __('Zip Code', 'wordcampnyc-2019')
         ,'columns' => 3
       )
     )
@@ -234,7 +231,7 @@ Meta Box: false
   piklist('field', array(
     'type' => 'textarea'
     ,'field' => 'description'
-    ,'label' => __('Notes', 'piklist-wordcamp-nyc')
+    ,'label' => __('Notes', 'wordcampnyc-2019')
     ,'value' => false
     ,'attributes' => array(
       'wrapper_class' => 'description'

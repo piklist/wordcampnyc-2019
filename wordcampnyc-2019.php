@@ -9,15 +9,16 @@ Author URI: https://piklist.com/
 Plugin Type: piklist
 */
 
-add_action('admin_footer', 'piklist_wcnyc_js_css');
+add_action('admin_footer', 'wcnyc_js_css');
+add_action('piklist_save_field', 'wcnyc_handle_email_form', 10, 2);
 
-add_filter('piklist_post_types', 'piklist_wcnyc_post_types');
-add_filter('piklist_empty_post_title', 'piklist_wcnyc_set_lead_title', 10, 2);
-add_filter('screen_layout_columns', 'piklist_wcnyc_layout_columns');
-add_filter('get_user_option_screen_layout_lead', 'piklist_wcnyc_layout_lead');
-add_filter('piklist_validation_rules', 'piklist_wcnyc_validation_rules', 11);
+add_filter('piklist_post_types', 'wcnyc_post_types');
+add_filter('piklist_empty_post_title', 'wcnyc_set_lead_title', 10, 2);
+add_filter('screen_layout_columns', 'wcnyc_layout_columns');
+add_filter('get_user_option_screen_layout_lead', 'wcnyc_layout_lead');
+add_filter('piklist_validation_rules', 'wcnyc_validation_rules', 11);
 
-function piklist_wcnyc_post_types($post_types)
+function wcnyc_post_types($post_types)
 {
   $post_types['lead'] = array(
     'labels' => piklist('post_type_labels', 'Lead')
@@ -56,7 +57,7 @@ function piklist_wcnyc_post_types($post_types)
   return $post_types;
 }
 
-function piklist_wcnyc_set_lead_title($data, $post) 
+function wcnyc_set_lead_title($data, $post) 
 {
   if ($post['post_type'] == 'lead') 
   {
@@ -66,32 +67,32 @@ function piklist_wcnyc_set_lead_title($data, $post)
   return $data;
 }
 
-function piklist_wcnyc_layout_columns($columns) 
+function wcnyc_layout_columns($columns) 
 {
   $columns['lead'] = 1;
 
   return $columns;
 }
 
-function piklist_wcnyc_layout_lead() 
+function wcnyc_layout_lead() 
 {
   return 1;
 }
 
-function piklist_wcnyc_validation_rules($validation_rules) 
+function wcnyc_validation_rules($validation_rules) 
 {
   $validation_rules['no_fake_names_please'] = array(
-    'callback' => 'piklist_wcnyc_validate_name'
+    'callback' => 'wcnyc_validate_name'
   );
 
   $validation_rules['validate_twitter'] = array(
-    'callback' => 'piklist_wcnyc_validate_twitter'
+    'callback' => 'wcnyc_validate_twitter'
   );
   
   return $validation_rules;
 }
 
-function piklist_wcnyc_validate_name($index, $value, $options, $field, $fields) 
+function wcnyc_validate_name($index, $value, $options, $field, $fields) 
 {
   $valid = true;
   
@@ -108,7 +109,7 @@ function piklist_wcnyc_validate_name($index, $value, $options, $field, $fields)
   
   $post_id = $field['object_id'];
 
-  $attempts = (int) get_post_meta($post_id, 'piklist_wcnyc_validate_name', true);
+  $attempts = (int) get_post_meta($post_id, 'wcnyc_validate_name', true);
   $name = strtolower($first_name . ' ' . $value);
 
   $blacklist = array(
@@ -119,9 +120,9 @@ function piklist_wcnyc_validate_name($index, $value, $options, $field, $fields)
   );
 
   $messages = array(
-    '1' => __('C`mon, that name is not real', 'piklist_wcnyc')
-    ,'2' => __('Really. We\'re going to play this game?', 'piklist_wcnyc')
-    ,'3' => __('Seriously? You\'re going to go with this name?', 'piklist_wcnyc')
+    '1' => __('C`mon, that name is not real', 'wcnyc_')
+    ,'2' => __('Really. We\'re going to play this game?', 'wcnyc_')
+    ,'3' => __('Seriously? You\'re going to go with this name?', 'wcnyc_')
   );
 
   if ($attempts < 3 && in_array($name, $blacklist))
@@ -130,17 +131,17 @@ function piklist_wcnyc_validate_name($index, $value, $options, $field, $fields)
     
     $valid = $messages[$attempts];
 
-    update_post_meta($post_id, 'piklist_wcnyc_validate_name', $attempts);
+    update_post_meta($post_id, 'wcnyc_validate_name', $attempts);
   }
   else
   {
-    delete_post_meta($post_id, 'piklist_wcnyc_validate_name');
+    delete_post_meta($post_id, 'wcnyc_validate_name');
   }
 
   return $valid;
 }
 
-function piklist_wcnyc_validate_twitter($index, $value, $options, $field, $fields) 
+function wcnyc_validate_twitter($index, $value, $options, $field, $fields) 
 {
   $valid = true;
   
@@ -152,14 +153,14 @@ function piklist_wcnyc_validate_twitter($index, $value, $options, $field, $field
 
     if ($body->reason != 'taken')
     {
-      $valid = __('Not a valid Twitter user name', 'piklist_wcnyc');
+      $valid = __('Not a valid Twitter user name', 'wcnyc_');
     }
   }
 
   return $valid;
 }
 
-function piklist_wcnyc_js_css() 
+function wcnyc_js_css() 
 {
 ?>
   <script type="text/javascript">
@@ -176,4 +177,23 @@ function piklist_wcnyc_js_css()
     });
   </script>
 <?php
+}
+
+function wcnyc_handle_email_form($scope, $fields)
+{
+  if ($scope == 'email')
+  {
+    $email = $headers = array();
+
+    foreach ($fields as $field)
+    {
+      $email[$field['field']] = $field['request_value'];
+    }
+
+    array_push($headers, 'From: ' . $email['from']);
+
+    $email['message'] .= "\r\n\r\n" . $email['signature'];
+ 
+    wp_mail($email['to'], $email['subject'], $email['message'], $headers);
+  }
 }

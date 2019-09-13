@@ -6,9 +6,6 @@ Post Type: lead
 */
 ?>
 
+  <h4><?php _e('Send Support a message'); ?></h4>
 
-<p>
-    <?php _e('Need some more help?'); ?>
-  </p>
-
-<?php echo do_shortcode('[piklist_form form="lead-help" add_on="piklist-wordcamp-nyc"]'); ?>
+  <?php echo do_shortcode('[piklist_form form="lead-help" add_on="wordcampnyc-2019"]'); ?>
