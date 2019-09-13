@@ -7,7 +7,5 @@ Post Type: lead
 ?>
 
   <p>
-    <?php _e('Need some more help?'); ?>
+    <?php _e('Get all the help you need, right here.'); ?>
   </p>
-
-<?php echo do_shortcode('[piklist_form form="lead-help" add_on="piklist-wordcamp-nyc"]'); ?>
