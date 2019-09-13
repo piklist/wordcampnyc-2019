@@ -32,7 +32,7 @@ function piklist_wcnyc_post_types($post_types)
     )
     ,'capability_type' => 'post'
     ,'edit_columns' => array(
-      'title' => __('Demo')
+      'title' => __('Lead')
       ,'author' => __('Assigned to')
     )
     ,'hide_meta_box' => array(
@@ -58,7 +58,7 @@ function piklist_wcnyc_post_types($post_types)
 
 function piklist_wcnyc_set_lead_title($data, $post) 
 {
-  if ($post_array['post_type'] == 'lead') 
+  if ($post['post_type'] == 'lead') 
   {
     $data = get_post_meta($post['ID'], 'first_name', true) . ' ' . get_post_meta($post['ID'], 'last_name', true);
   } 
