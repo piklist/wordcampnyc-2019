@@ -47,6 +47,27 @@ Meta Box: false
     )
   ));
 
+
+  piklist('field', array(
+    'type' => 'text'
+    ,'field' => 'company'
+    ,'label' => __('Company', 'piklist-wordcamp-nyc')
+    ,'attributes' => array(
+      'class' => 'large-text'
+    )
+  ));
+
+  piklist('field', array(
+    'type' => 'url'
+    ,'field' => 'website'
+    ,'label' => __('Website', 'piklist-wordcamp-nyc')
+    ,'description' => __('Full URL starting with https://', 'piklist-wordcamp-nyc')
+    ,'attributes' => array(
+      'class' => 'large-text'
+      ,'placeholder' => 'https://'
+    )
+  ));
+
   piklist('field', array(
     'type' => 'text'
     ,'field' => 'user_email'
@@ -72,10 +93,31 @@ Meta Box: false
     'type' => 'text'
     ,'field' => 'user_twitter'
     ,'label' => __('Twitter Username', 'piklist-wordcamp-nyc')
-    ,'required' => true
+    ,'description' => __('Just the username, not the full url', 'piklist-wordcamp-nyc')
+    ,'help' => __('This allows us to follow the lead on Twitter.', 'piklist-wordcamp-nyc')
     ,'validate' => array(
       array(
         'type' => 'validate_twitter'
+      )
+    )
+    ,'attributes' => array(
+      'class' => 'large-text'
+    )
+  ));
+
+
+  // Show this field if the Country is set to OTHER
+  piklist('field', array(
+    'type' => 'html'
+    ,'field' => '_message_country'
+    ,'value' => '<strong>' . sprintf(__('For leads outside the United States, please %1$suse this form %2$s.', 'piklist'),'<a href="' . network_admin_url() . '#">', '</a>') . '</strong>'
+    ,'attributes' => array(
+      'class' => 'piklist-error-text'
+    )
+    ,'conditions' => array(
+      array(
+        'field' => 'country'
+        ,'value' => 'other'
       )
     )
     ,'attributes' => array(
@@ -89,31 +131,37 @@ Meta Box: false
     ,'list' => true
     ,'fields' => array(
       array(
+        'type' => 'radio'
+        ,'field' => 'country'
+        ,'label' => __('Country', 'piklist-wordcamp-nyc')
+        ,'value' => 'us'
+        ,'columns' => 12
+        ,'list' => false
+        ,'attributes' => array(
+          'placeholder' => 'Street Address'
+        )
+        ,'choices' => array(
+          'us' => 'United States'
+          ,'other' => 'Other'
+        )
+      )
+      ,array(
         'type' => 'text'
         ,'field' => 'address_1'
         ,'label' => __('Street Address', 'piklist-wordcamp-nyc')
         ,'columns' => 12
-        ,'attributes' => array(
-          'placeholder' => 'Street Address'
-        )
       )
       ,array(
         'type' => 'text'
         ,'field' => 'address_2'
         ,'label' => __('PO Box, Suite, etc.', 'piklist-wordcamp-nyc')
         ,'columns' => 12
-        ,'attributes' => array(
-          'placeholder' => 'Street Address'
-        )
       )
       ,array(
         'type' => 'text'
         ,'field' => 'city'
         ,'label' => __('City', 'piklist-wordcamp-nyc')
         ,'columns' => 5
-        ,'attributes' => array(
-          'placeholder' => 'City'
-        )
       )
       ,array(
         'type' => 'select'
@@ -179,9 +227,6 @@ Meta Box: false
         ,'field' => 'postal_code'
         ,'label' => __('Zip Code', 'piklist-wordcamp-nyc')
         ,'columns' => 3
-        ,'attributes' => array(
-          'placeholder' => 'Postal Code'
-        )
       )
     )
   ));

@@ -111,10 +111,10 @@ function piklist_wcnyc_validate_name($index, $value, $options, $field, $fields)
   $name = strtolower($first_name . ' ' . $value);
 
   $blacklist = array(
-    'steve bruner'
-    ,'john smith'
+    'john smith'
     ,'jane doe'
     ,'john doe'
+    ,'johnny appleseed'
   );
 
   $messages = array(
@@ -151,7 +151,7 @@ function piklist_wcnyc_validate_twitter($index, $value, $options, $field, $field
 
     if ($body->reason != 'taken')
     {
-      $valid = __('C`mon, we really want to follow you but we can`t follow a ghost!', 'piklist_wcnyc');
+      $valid = __('Not a valid Twitter user name', 'piklist_wcnyc');
     }
   }
 
