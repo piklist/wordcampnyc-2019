@@ -15,7 +15,7 @@ add_filter('piklist_post_types', 'piklist_wcnyc_post_types');
 add_filter('piklist_empty_post_title', 'piklist_wcnyc_set_lead_title', 10, 2);
 add_filter('screen_layout_columns', 'piklist_wcnyc_layout_columns');
 add_filter('get_user_option_screen_layout_lead', 'piklist_wcnyc_layout_lead');
-add_filter('piklist_validation_rules', 'piklist_wcnyc_no_fake_names_please', 11);
+add_filter('piklist_validation_rules', 'piklist_wcnyc_no_fake_names_please');
 
 function piklist_wcnyc_post_types($post_types)
 {
