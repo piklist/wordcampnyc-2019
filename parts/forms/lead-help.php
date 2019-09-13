@@ -13,6 +13,7 @@ Message: Request sent!
     ,'label' => __('Email', 'piklist-wordcamp-nyc')
     ,'value' => false
     ,'required' => true
+    ,'template' => 'label_field'
     ,'validate' => array(
       array(
         'type' => 'email_exists'
@@ -25,7 +26,7 @@ Message: Request sent!
       )
     )
     ,'attributes' => array(
-      'class' => 'regular-text'
+      'style' => 'width: 100%; margin-bottom: 10px;'
     )
   ));
 
@@ -33,7 +34,9 @@ Message: Request sent!
     'type' => 'submit'
     ,'field' => 'submit'
     ,'value' => 'Request Help'
+    ,'template' => 'field'
     ,'attributes' => array(
       'class' => 'button button-primary'
+      ,'style' => 'float: right;'
     )
   ));
