@@ -167,7 +167,7 @@ function wcnyc_js_css()
     // Adjust our arrow on the help pointer as the pointer API doesn't support right aligned arrows
     $(window).load(function()
     {
-      $('h3#piklist_wordcamp_nyc_lead_pointer')
+      $('h3#wordcampnyc_2019_lead_pointer')
         .parent()
         .siblings('.wp-pointer-arrow')
         .css({
