@@ -18,6 +18,13 @@ add_filter('screen_layout_columns', 'wcnyc_layout_columns');
 add_filter('get_user_option_screen_layout_lead', 'wcnyc_layout_lead');
 add_filter('piklist_validation_rules', 'wcnyc_validation_rules', 11);
 
+
+/**
+ * register post types
+ *
+ * @param [type] $post_types
+ * @return void
+ */
 function wcnyc_post_types($post_types)
 {
   $post_types['lead'] = array(
@@ -57,6 +64,15 @@ function wcnyc_post_types($post_types)
   return $post_types;
 }
 
+/**
+ * create a post_title for each lead
+ * combine the first and last name fields
+ * since the title field has been removed
+ *
+ * @param [type] $data
+ * @param [type] $post
+ * @return void
+ */
 function wcnyc_set_lead_title($data, $post) 
 {
   if ($post['post_type'] == 'lead') 
@@ -67,6 +83,12 @@ function wcnyc_set_lead_title($data, $post)
   return $data;
 }
 
+/**
+ * force one column for lead screen
+ *
+ * @param [type] $columns
+ * @return void
+ */
 function wcnyc_layout_columns($columns) 
 {
   $columns['lead'] = 1;
@@ -74,11 +96,22 @@ function wcnyc_layout_columns($columns)
   return $columns;
 }
 
+/**
+ * force one column for lead screen in logged in users settings
+ *
+ * @return void
+ */
 function wcnyc_layout_lead() 
 {
   return 1;
 }
 
+/**
+ * register custom validation rules
+ *
+ * @param [type] $validation_rules
+ * @return void
+ */
 function wcnyc_validation_rules($validation_rules) 
 {
   $validation_rules['no_fake_names_please'] = array(
@@ -92,6 +125,16 @@ function wcnyc_validation_rules($validation_rules)
   return $validation_rules;
 }
 
+/**
+ * validation rule: check for fake names
+ *
+ * @param [type] $index
+ * @param [type] $value
+ * @param [type] $options
+ * @param [type] $field
+ * @param [type] $fields
+ * @return void
+ */
 function wcnyc_validate_name($index, $value, $options, $field, $fields) 
 {
   $valid = true;
@@ -120,9 +163,9 @@ function wcnyc_validate_name($index, $value, $options, $field, $fields)
   );
 
   $messages = array(
-    '1' => __('C`mon, that name is not real', 'wcnyc_')
-    ,'2' => __('Really. We\'re going to play this game?', 'wcnyc_')
-    ,'3' => __('Seriously? You\'re going to go with this name?', 'wcnyc_')
+    '1' => __('C`mon, that name is not real', 'wordcampnyc-2019')
+    ,'2' => __('Really. We\'re going to play this game?', 'wordcampnyc-2019')
+    ,'3' => __('Seriously? You\'re going to go with this name?', 'wordcampnyc-2019')
   );
 
   if ($attempts < 3 && in_array($name, $blacklist))
@@ -141,6 +184,17 @@ function wcnyc_validate_name($index, $value, $options, $field, $fields)
   return $valid;
 }
 
+/**
+ * validate twitter handle
+ * using twitter api
+ *
+ * @param [type] $index
+ * @param [type] $value
+ * @param [type] $options
+ * @param [type] $field
+ * @param [type] $fields
+ * @return void
+ */
 function wcnyc_validate_twitter($index, $value, $options, $field, $fields) 
 {
   $valid = true;
@@ -153,18 +207,22 @@ function wcnyc_validate_twitter($index, $value, $options, $field, $fields)
 
     if ($body->reason != 'taken')
     {
-      $valid = __('Not a valid Twitter user name', 'wcnyc_');
+      $valid = __('Not a valid Twitter user name', 'wordcampnyc-2019');
     }
   }
 
   return $valid;
 }
 
+/**
+ * Adjust our arrow on the help pointer as the pointer API doesn't support right aligned arrows
+ *
+ * @return void
+ */
 function wcnyc_js_css() 
 {
 ?>
   <script type="text/javascript">
-    // Adjust our arrow on the help pointer as the pointer API doesn't support right aligned arrows
     $(window).load(function()
     {
       $('h3#wordcampnyc_2019_lead_pointer')
@@ -179,6 +237,13 @@ function wcnyc_js_css()
 <?php
 }
 
+/**
+ * email contents from support form
+ *
+ * @param [type] $scope
+ * @param [type] $fields
+ * @return void
+ */
 function wcnyc_handle_email_form($scope, $fields)
 {
   if ($scope == 'email')
